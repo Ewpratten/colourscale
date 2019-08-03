@@ -52,6 +52,8 @@ print(args.msize)
 
 out = []
 
+q_lock = False
+
 for i, row in enumerate(raw_im):
 
     cl = []
@@ -65,7 +67,11 @@ for i, row in enumerate(raw_im):
                 prev_px.append(raw_im[i][j - k])
             
             # print(avgPX(prev_px))
-            cl.append(avgPX(prev_px))
+            if not q_lock:
+                cl.append((0, 0, 255))
+                q_lock = True
+            else:
+                cl.append(avgPX(prev_px))
         else:
             # Append the L value
 
